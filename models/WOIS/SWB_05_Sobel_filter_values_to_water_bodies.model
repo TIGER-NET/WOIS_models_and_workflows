@@ -1,0 +1,291 @@
+{
+    "values": {
+        "inputs": {
+            "RASTERLAYER_INPUT": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_INPUT", 
+                            "hidden": false, 
+                            "description": "Input: Intermdeiate water bodies v5", 
+                            "optional": false, 
+                            "value": null, 
+                            "exported": null
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "RASTERLAYER_INPUTSOBELFILTERVALUES": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 560.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_INPUTSOBELFILTERVALUES", 
+                            "hidden": false, 
+                            "description": "Input: Sobel Filter Values", 
+                            "optional": false, 
+                            "value": null, 
+                            "exported": null
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "FILE_BUFFERFILE2": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 340.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "FILE_BUFFERFILE2", 
+                            "isFolder": false, 
+                            "value": null, 
+                            "ext": null, 
+                            "hidden": false, 
+                            "optional": true, 
+                            "description": "Buffer_File2"
+                        }, 
+                        "class": "processing.core.parameters.ParameterFile"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "SWB", 
+        "name": "05_Sobel_filter_values_to_water_bodies", 
+        "algs": {
+            "GRASSR.CLUMP_1": {
+                "values": {
+                    "name": "GRASSR.CLUMP_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 150.0, 
+                            "x": 123.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "input": {
+                            "values": {
+                                "name": "RASTERLAYER_INPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "title": "Clumps"
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.clump", 
+                    "description": "r.clump - Recategorizes data in a raster map by grouping cells that form physically discrete areas into unique categories."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.AVERAGE_1": {
+                "values": {
+                    "name": "GRASSR.AVERAGE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "output": {
+                            "values": {
+                                "description": "OUTPUT: Averaged sobel distance values within isolated water bodies", 
+                                "pos": {
+                                    "values": {
+                                        "y": 580.0, 
+                                        "x": 1156.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 580.0, 
+                            "x": 956.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "cover": {
+                            "values": {
+                                "alg": "GRASSR.MAPCALCULATOR_2", 
+                                "output": "outfile"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "-c": "False", 
+                        "base": {
+                            "values": {
+                                "alg": "GRASSR.CLUMP_1", 
+                                "output": "output"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.average", 
+                    "description": "r.average - Finds the average of values in a cover raster layer  within areas assigned the same category value in a user-specified base layer."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.MFILTER.FP_1": {
+                "values": {
+                    "name": "GRASSR.MFILTER.FP_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 250.0, 
+                            "x": 343.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "repeat": "1", 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "filter": {
+                            "values": {
+                                "name": "FILE_BUFFERFILE2"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "input": {
+                            "values": {
+                                "name": "RASTERLAYER_INPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "-z": "False"
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mfilter.fp", 
+                    "description": "r.mfilter.fp - Raster map matrix filter."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.MAPCALCULATOR_2": {
+                "values": {
+                    "name": "GRASSR.MAPCALCULATOR_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 480.0, 
+                            "x": 736.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "fmap": null, 
+                        "emap": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "dmap": null, 
+                        "cmap": null, 
+                        "bmap": {
+                            "values": {
+                                "alg": "GRASSR.MAPCALCULATOR_1", 
+                                "output": "outfile"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "amap": {
+                            "values": {
+                                "name": "RASTERLAYER_INPUTSOBELFILTERVALUES"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "formula": " A*B", 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mapcalculator", 
+                    "description": "r.mapcalculator - Calculate new raster map from a r.mapcalc expression."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.MAPCALCULATOR_1": {
+                "values": {
+                    "name": "GRASSR.MAPCALCULATOR_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 380.0, 
+                            "x": 516.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "fmap": null, 
+                        "emap": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "dmap": null, 
+                        "cmap": null, 
+                        "bmap": {
+                            "values": {
+                                "alg": "GRASSR.MFILTER.FP_1", 
+                                "output": "output"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "amap": {
+                            "values": {
+                                "name": "RASTERLAYER_INPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "formula": "if((A==1 && B>0 && B<1),1,0)", 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mapcalculator", 
+                    "description": "r.mapcalculator - Calculate new raster map from a r.mapcalc expression."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

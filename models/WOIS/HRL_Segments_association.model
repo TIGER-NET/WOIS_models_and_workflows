@@ -1,0 +1,184 @@
+{
+    "values": {
+        "inputs": {
+            "VECTORLAYER_INPUTSEGMENTSSTEP1": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 340.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "VECTORLAYER_INPUTSEGMENTSSTEP1", 
+                            "shapetype": [
+                                -1
+                            ], 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "INPUT: Segments (step 1)"
+                        }, 
+                        "class": "processing.core.parameters.ParameterVector"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "NUMBER_CELLSIZE": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 560.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "NUMBER_CELLSIZE", 
+                            "min": 0.0, 
+                            "default": 0.0, 
+                            "max": 1000.0, 
+                            "value": null, 
+                            "hidden": false, 
+                            "isInteger": false, 
+                            "description": "cellsize"
+                        }, 
+                        "class": "processing.core.parameters.ParameterNumber"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "RASTERLAYER_INPUTPIXELBASEDCLASSIFICATION": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_INPUTPIXELBASEDCLASSIFICATION", 
+                            "hidden": false, 
+                            "description": "INPUT: Pixel based classification", 
+                            "optional": false, 
+                            "value": null, 
+                            "exported": null
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "HR Landcover", 
+        "name": "Segments association", 
+        "algs": {
+            "GRASSR.MODE_1": {
+                "values": {
+                    "name": "GRASSR.MODE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "output": {
+                            "values": {
+                                "description": "OUTPUT", 
+                                "pos": {
+                                    "values": {
+                                        "y": 298.5, 
+                                        "x": 616.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 272.0, 
+                            "x": 406.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "cover": {
+                            "values": {
+                                "name": "RASTERLAYER_INPUTPIXELBASEDCLASSIFICATION"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": {
+                            "values": {
+                                "name": "NUMBER_CELLSIZE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "base": {
+                            "values": {
+                                "alg": "GRASSV.TO.RAST.ATTRIBUTE_1", 
+                                "output": "output"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mode", 
+                    "description": "r.mode - Finds the mode of values in a cover layer within areas assigned the same category value in a user-specified base layer."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSV.TO.RAST.ATTRIBUTE_1": {
+                "values": {
+                    "name": "GRASSV.TO.RAST.ATTRIBUTE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 172.0, 
+                            "x": 186.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "use": "0", 
+                        "GRASS_SNAP_TOLERANCE_PARAMETER": "-1.0", 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": {
+                            "values": {
+                                "name": "NUMBER_CELLSIZE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_MIN_AREA_PARAMETER": "0.0001", 
+                        "column": "DN", 
+                        "input": {
+                            "values": {
+                                "name": "VECTORLAYER_INPUTSEGMENTSSTEP1"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:v.to.rast.attribute", 
+                    "description": "v.to.rast.attribute - Converts (rasterize) a vector layer into a raster layer."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

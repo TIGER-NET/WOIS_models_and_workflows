@@ -1,0 +1,234 @@
+{
+    "values": {
+        "inputs": {
+            "RASTERLAYER_CORRESPONDINGCLOUDMASK": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 340.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_CORRESPONDINGCLOUDMASK", 
+                            "showSublayersDialog": true, 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "Corresponding cloud mask"
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "RASTERLAYER_CLOUDMASKEDMERISSCENE": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_CLOUDMASKEDMERISSCENE", 
+                            "showSublayersDialog": true, 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "cloud masked MERIS scene"
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "Wetlands", 
+        "name": "05_WATER", 
+        "algs": {
+            "GDALOGRMERGE_1": {
+                "values": {
+                    "name": "GDALOGRMERGE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "OUTPUT": {
+                            "values": {
+                                "description": "Output: WATER", 
+                                "pos": {
+                                    "values": {
+                                        "y": 391.0, 
+                                        "x": 655.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "outputsFolded": true, 
+                    "pos": {
+                        "values": {
+                            "y": 338.0, 
+                            "x": 511.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_1", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_1": {
+                "values": {
+                    "name": "OTBBANDMATH_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 160.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_CORRESPONDINGCLOUDMASK"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_CLOUDMASKEDMERISSCENE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }
+                        ], 
+                        "-exp": "if(im1b1==2,(((im2b13*100)/im2b2)*5000)+5000,0)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.AVERAGE_1": {
+                "values": {
+                    "name": "GRASSR.AVERAGE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 296.0, 
+                            "x": 116.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "GRASS_REGION_CELLSIZE_PARAMETER": 0.0, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "cover": {
+                            "values": {
+                                "alg": "OTBBANDMATH_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "base": {
+                            "values": {
+                                "name": "RASTERLAYER_CORRESPONDINGCLOUDMASK"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "-c": false
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.average", 
+                    "description": "r.average - Finds the average of values in a cover raster layer  within areas assigned the same category value in a user-specified base layer."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.MAPCALCULATOR_1": {
+                "values": {
+                    "name": "GRASSR.MAPCALCULATOR_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 261.0, 
+                            "x": 384.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "fmap": null, 
+                        "emap": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "dmap": null, 
+                        "cmap": {
+                            "values": {
+                                "name": "RASTERLAYER_CORRESPONDINGCLOUDMASK"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "bmap": {
+                            "values": {
+                                "alg": "GRASSR.AVERAGE_1", 
+                                "output": "output"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "amap": {
+                            "values": {
+                                "alg": "OTBBANDMATH_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "formula": "if(C==2,(A/B)*1000,0)", 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mapcalculator", 
+                    "description": "r.mapcalculator - Calculate new raster map from a r.mapcalc expression."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

@@ -1,0 +1,117 @@
+{
+    "values": {
+        "inputs": {
+            "RASTERLAYER_INPUT": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_INPUT", 
+                            "hidden": false, 
+                            "description": "INPUT", 
+                            "optional": false, 
+                            "value": null, 
+                            "exported": null
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "HR Landcover", 
+        "name": "Samples extraction", 
+        "algs": {
+            "GRASSR.TO.VECT_1": {
+                "values": {
+                    "name": "GRASSR.TO.VECT_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 160.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "input": {
+                            "values": {
+                                "name": "RASTERLAYER_INPUT"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "-s": "False", 
+                        "feature": "2", 
+                        "GRASS_OUTPUT_TYPE_PARAMETER": "0"
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.to.vect", 
+                    "description": "r.to.vect - Converts a raster into a vector layer."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSV.EXTRACT_1": {
+                "values": {
+                    "name": "GRASSV.EXTRACT_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "output": {
+                            "values": {
+                                "description": "OUTPUT: Samples", 
+                                "pos": {
+                                    "values": {
+                                        "y": 288.0, 
+                                        "x": 542.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 260.0, 
+                            "x": 340.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-d": "False", 
+                        "GRASS_SNAP_TOLERANCE_PARAMETER": "-1.0", 
+                        "GRASS_MIN_AREA_PARAMETER": "0.0001", 
+                        "GRASS_OUTPUT_TYPE_PARAMETER": "0", 
+                        "input": {
+                            "values": {
+                                "alg": "GRASSR.TO.VECT_1", 
+                                "output": "output"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "where": "\"value\" > 0"
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:v.extract", 
+                    "description": "v.extract - Selects vector objects from a vector layer a new layer containing only the selected objects."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

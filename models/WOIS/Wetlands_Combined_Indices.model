@@ -1,0 +1,281 @@
+{
+    "values": {
+        "inputs": {
+            "RASTERLAYER_CLOUDMASKEDMERISIMAGE": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 55.0, 
+                            "x": 161.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_CLOUDMASKEDMERISIMAGE", 
+                            "showSublayersDialog": true, 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "Cloud masked MERIS image"
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "RASTERLAYER_CLOUDMASK": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 381.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_CLOUDMASK", 
+                            "showSublayersDialog": true, 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "Cloud Mask"
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "Wetlands", 
+        "name": "06_Combined_Indices", 
+        "algs": {
+            "MODELERWETLANDS_NDWI_1": {
+                "values": {
+                    "name": "MODELERWETLANDS_NDWI_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 154.0, 
+                            "x": 355.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "RASTERLAYER_CORRESPONDINGCLOUDMASK": {
+                            "values": {
+                                "name": "RASTERLAYER_CLOUDMASK"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "RASTERLAYER_CLOUDMASKEDMERISSCENE": {
+                            "values": {
+                                "name": "RASTERLAYER_CLOUDMASKEDMERISIMAGE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "modeler:wetlands_ndwi", 
+                    "description": "03_NDWI"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "MODELERWETLANDS_NDVI_1": {
+                "values": {
+                    "name": "MODELERWETLANDS_NDVI_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "OUTPUT_ALGGDALOGRMERGE_1": {
+                            "values": {
+                                "description": "NDVI", 
+                                "pos": {
+                                    "values": {
+                                        "y": 247.0, 
+                                        "x": 166.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 160.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "RASTERLAYER_CORRESPONDINGCLOUDMASK": {
+                            "values": {
+                                "name": "RASTERLAYER_CLOUDMASK"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "RASTERLAYER_CLOUDMASKEDMERISSCENE": {
+                            "values": {
+                                "name": "RASTERLAYER_CLOUDMASKEDMERISIMAGE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "modeler:wetlands_ndvi", 
+                    "description": "02_NDVI"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.MAPCALCULATOR_1": {
+                "values": {
+                    "name": "GRASSR.MAPCALCULATOR_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "outfile": {
+                            "values": {
+                                "description": "Output: Combined Indices", 
+                                "pos": {
+                                    "values": {
+                                        "y": 411.0, 
+                                        "x": 617.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 327.0, 
+                            "x": 542.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "fmap": null, 
+                        "emap": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": 0.0, 
+                        "dmap": {
+                            "values": {
+                                "alg": "MODELERWETLANDS_WATER_1", 
+                                "output": "OUTPUT_ALGGDALOGRMERGE_1"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "cmap": {
+                            "values": {
+                                "alg": "MODELERWETLANDS_SAVI_1", 
+                                "output": "OUTPUT_ALGGDALOGRMERGE_1"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "bmap": {
+                            "values": {
+                                "alg": "MODELERWETLANDS_NDWI_1", 
+                                "output": "OUTPUT_ALGGDALOGRMERGE_1"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "amap": {
+                            "values": {
+                                "alg": "MODELERWETLANDS_NDVI_1", 
+                                "output": "OUTPUT_ALGGDALOGRMERGE_1"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "formula": "A+B+C+D", 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mapcalculator", 
+                    "description": "r.mapcalculator - Calculate new raster map from a r.mapcalc expression."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "MODELERWETLANDS_SAVI_1": {
+                "values": {
+                    "name": "MODELERWETLANDS_SAVI_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 149.0, 
+                            "x": 588.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "RASTERLAYER_CORRESPONDINGCLOUDMASK": {
+                            "values": {
+                                "name": "RASTERLAYER_CLOUDMASK"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "RASTERLAYER_CLOUDMASKEDMERISSCENE": {
+                            "values": {
+                                "name": "RASTERLAYER_CLOUDMASKEDMERISIMAGE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "modeler:wetlands_savi", 
+                    "description": "04_SAVI"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "MODELERWETLANDS_WATER_1": {
+                "values": {
+                    "name": "MODELERWETLANDS_WATER_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 143.0, 
+                            "x": 823.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "RASTERLAYER_CORRESPONDINGCLOUDMASK": {
+                            "values": {
+                                "name": "RASTERLAYER_CLOUDMASK"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "RASTERLAYER_CLOUDMASKEDMERISSCENE": {
+                            "values": {
+                                "name": "RASTERLAYER_CLOUDMASKEDMERISIMAGE"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "modeler:wetlands_water", 
+                    "description": "05_WATER"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

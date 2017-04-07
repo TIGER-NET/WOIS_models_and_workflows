@@ -1,0 +1,1355 @@
+{
+    "values": {
+        "inputs": {
+            "RASTERLAYER_MERISIMAGE": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 46.0, 
+                            "x": 296.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_MERISIMAGE", 
+                            "showSublayersDialog": true, 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "MERIS image"
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "Wetlands", 
+        "name": "01_Cloud_masking", 
+        "algs": {
+            "OTBBANDMATH_6": {
+                "values": {
+                    "name": "OTBBANDMATH_6", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 640.0, 
+                            "x": 882.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b2*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 2"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.MAPCALCULATOR_2": {
+                "values": {
+                    "name": "GRASSR.MAPCALCULATOR_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 441.0, 
+                            "x": 126.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "fmap": null, 
+                        "emap": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "dmap": null, 
+                        "cmap": null, 
+                        "bmap": null, 
+                        "amap": {
+                            "values": {
+                                "alg": "GRASSR.BUFFER_1", 
+                                "output": "output"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "formula": "if(isnull(A),0,1)", 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mapcalculator", 
+                    "description": "r.mapcalculator - Calculate new raster map from a r.mapcalc expression."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_9": {
+                "values": {
+                    "name": "GDALOGRMERGE_9", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1448.7872572452634, 
+                            "x": 1206.2052796376956
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_8", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_14", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 12345678910"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_8": {
+                "values": {
+                    "name": "GDALOGRMERGE_8", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1345.302630196547, 
+                            "x": 1205.2076299035846
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_7", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_13", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 123456789"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_4": {
+                "values": {
+                    "name": "OTBBANDMATH_4", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 158.0, 
+                            "x": 842.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }
+                        ], 
+                        "-exp": "im1b3"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_1": {
+                "values": {
+                    "name": "GDALOGRMERGE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 606.5908564150682, 
+                            "x": 1140.0539003907513
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_6", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_5", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 12"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_3": {
+                "values": {
+                    "name": "GDALOGRMERGE_3", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 804.0, 
+                            "x": 1139.0539003907516
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_2", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_8", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 1234"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_2": {
+                "values": {
+                    "name": "GDALOGRMERGE_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 711.7401668749991, 
+                            "x": 1136.7046269532511
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_1", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_7", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 123"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_5": {
+                "values": {
+                    "name": "GDALOGRMERGE_5", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1020.4090336482504, 
+                            "x": 1168.522011429576
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_4", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_10", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 123456"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_4": {
+                "values": {
+                    "name": "GDALOGRMERGE_4", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 909.7045488984605, 
+                            "x": 1167.5243616954647
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_3", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_9", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 12345"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_7": {
+                "values": {
+                    "name": "GDALOGRMERGE_7", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1229.7849069793747, 
+                            "x": 1192.1768840010177
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_6", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_12", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 12345678"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_6": {
+                "values": {
+                    "name": "GDALOGRMERGE_6", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1131.11351839804, 
+                            "x": 1186.3659957995246
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_5", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_11", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 1234567"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.BUFFER_1": {
+                "values": {
+                    "name": "GRASSR.BUFFER_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 351.0, 
+                            "x": 128.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "distances": "3000", 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "units": "0", 
+                        "input": {
+                            "values": {
+                                "alg": "GRASSR.MAPCALCULATOR_1", 
+                                "output": "outfile"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "-z": "True"
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.buffer", 
+                    "description": "r.buffer - Creates a raster map layer showing buffer zones surrounding cells that contain non-NULL category values."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_2": {
+                "values": {
+                    "name": "OTBBANDMATH_2", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 157.0, 
+                            "x": 347.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }
+                        ], 
+                        "-exp": "im1b1"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_3": {
+                "values": {
+                    "name": "OTBBANDMATH_3", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 156.0, 
+                            "x": 587.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }
+                        ], 
+                        "-exp": "im1b2"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_1": {
+                "values": {
+                    "name": "OTBBANDMATH_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 160.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }
+                        ], 
+                        "-exp": "im1b32"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.MAPCALCULATOR_3": {
+                "values": {
+                    "name": "GRASSR.MAPCALCULATOR_3", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "outfile": {
+                            "values": {
+                                "description": "Output: Mask", 
+                                "pos": {
+                                    "values": {
+                                        "y": 731.4963750000002, 
+                                        "x": 508.11574999999993
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 558.0, 
+                            "x": 579.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "fmap": null, 
+                        "emap": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": 0.0, 
+                        "dmap": {
+                            "values": {
+                                "alg": "GRASSR.MAPCALCULATOR_2", 
+                                "output": "outfile"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "cmap": {
+                            "values": {
+                                "alg": "OTBBANDMATH_4", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "bmap": {
+                            "values": {
+                                "alg": "OTBBANDMATH_3", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "amap": {
+                            "values": {
+                                "alg": "OTBBANDMATH_2", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "formula": "if((A==0 && B==0 && C==0),0,if(D==0,2,D))", 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mapcalculator", 
+                    "description": "r.mapcalculator - last"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_7": {
+                "values": {
+                    "name": "OTBBANDMATH_7", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 723.0, 
+                            "x": 885.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b3*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 3"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.MAPCALCULATOR_1": {
+                "values": {
+                    "name": "GRASSR.MAPCALCULATOR_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 257.0, 
+                            "x": 127.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "fmap": null, 
+                        "emap": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "dmap": null, 
+                        "cmap": null, 
+                        "bmap": null, 
+                        "amap": {
+                            "values": {
+                                "alg": "OTBBANDMATH_1", 
+                                "output": "-out"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "formula": "if(A>0,1,0)", 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mapcalculator", 
+                    "description": "r.mapcalculator - Calculate new raster map from a r.mapcalc expression."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_5": {
+                "values": {
+                    "name": "OTBBANDMATH_5", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 559.0, 
+                            "x": 874.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b1*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 1"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_8": {
+                "values": {
+                    "name": "OTBBANDMATH_8", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 818.0, 
+                            "x": 881.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b4*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 4"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_9": {
+                "values": {
+                    "name": "OTBBANDMATH_9", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 912.0, 
+                            "x": 881.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b5*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 5"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_11": {
+                "values": {
+                    "name": "GDALOGRMERGE_11", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1658.163130576388, 
+                            "x": 1215.420436806991
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_10", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_16", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 123456789101112"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_10": {
+                "values": {
+                    "name": "GDALOGRMERGE_10", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1559.4917419950539, 
+                            "x": 1212.016167839189
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_9", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_15", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge 1234567891011"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GDALOGRMERGE_12": {
+                "values": {
+                    "name": "GDALOGRMERGE_12", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "OUTPUT": {
+                            "values": {
+                                "description": "Output: Cloud masked image", 
+                                "pos": {
+                                    "values": {
+                                        "y": 1794.6146614566496, 
+                                        "x": 1488.6166635518348
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "outputsFolded": true, 
+                    "pos": {
+                        "values": {
+                            "y": 1749.6146614566496, 
+                            "x": 1288.6166635518348
+                        }, 
+                        "class": "point"
+                    }, 
+                    "dependencies": [], 
+                    "params": {
+                        "INPUT": [
+                            {
+                                "values": {
+                                    "alg": "GDALOGRMERGE_11", 
+                                    "output": "OUTPUT"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "OTBBANDMATH_17", 
+                                    "output": "-out"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "RTYPE": 2, 
+                        "PCT": true, 
+                        "SEPARATE": true
+                    }, 
+                    "active": true, 
+                    "consoleName": "gdalogr:merge", 
+                    "description": "Merge"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_14": {
+                "values": {
+                    "name": "OTBBANDMATH_14", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1408.0, 
+                            "x": 898.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b10*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 10"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_15": {
+                "values": {
+                    "name": "OTBBANDMATH_15", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1517.0, 
+                            "x": 898.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b11*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 11"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_16": {
+                "values": {
+                    "name": "OTBBANDMATH_16", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1617.0, 
+                            "x": 908.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b12*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 12"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_17": {
+                "values": {
+                    "name": "OTBBANDMATH_17", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1717.0, 
+                            "x": 915.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b13*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 13"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_10": {
+                "values": {
+                    "name": "OTBBANDMATH_10", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1012.0, 
+                            "x": 888.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b6*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 6"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_11": {
+                "values": {
+                    "name": "OTBBANDMATH_11", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1112.0, 
+                            "x": 890.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b7*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 7"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_12": {
+                "values": {
+                    "name": "OTBBANDMATH_12", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1207.0, 
+                            "x": 881.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b8*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 8"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "OTBBANDMATH_13": {
+                "values": {
+                    "name": "OTBBANDMATH_13", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 1310.0, 
+                            "x": 898.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "-ram": 128.0, 
+                        "-il": [
+                            {
+                                "values": {
+                                    "name": "RASTERLAYER_MERISIMAGE"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                            }, 
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_3", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-exp": "if(im2b1==1,0,im1b9*10000)"
+                    }, 
+                    "active": true, 
+                    "consoleName": "otb:bandmath", 
+                    "description": "Band Math 9"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

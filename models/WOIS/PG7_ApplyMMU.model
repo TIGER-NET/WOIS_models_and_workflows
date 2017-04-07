@@ -1,0 +1,148 @@
+{
+    "values": {
+        "inputs": {
+            "RASTERLAYER_CLASSIFIEDLAYER": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_CLASSIFIEDLAYER", 
+                            "hidden": false, 
+                            "description": "Classified_Layer", 
+                            "optional": false, 
+                            "value": null, 
+                            "exported": null
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "NUMBER_MMU": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 340.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "NUMBER_MMU", 
+                            "min": 1.0, 
+                            "default": 3.0, 
+                            "max": null, 
+                            "value": null, 
+                            "hidden": false, 
+                            "isInteger": false, 
+                            "description": "MMU"
+                        }, 
+                        "class": "processing.core.parameters.ParameterNumber"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "Flood mapping", 
+        "name": "Apply MMU", 
+        "algs": {
+            "GRASSR.CLUMP_1": {
+                "values": {
+                    "name": "GRASSR.CLUMP_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 160.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "input": {
+                            "values": {
+                                "name": "RASTERLAYER_CLASSIFIEDLAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "title": "clumped"
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.clump", 
+                    "description": "r.clump - Recategorizes data in a raster map by grouping cells that form physically discrete areas into unique categories."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "RMMUREMOVESMALLCLUMPS_1": {
+                "values": {
+                    "name": "RMMUREMOVESMALLCLUMPS_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "Output_raster ": {
+                            "values": {
+                                "description": "Output_raster", 
+                                "pos": {
+                                    "values": {
+                                        "y": 286.5, 
+                                        "x": 550.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "pos": {
+                        "values": {
+                            "y": 260.0, 
+                            "x": 340.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "Classified_Layer ": {
+                            "values": {
+                                "name": "RASTERLAYER_CLASSIFIEDLAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "MMU ": {
+                            "values": {
+                                "name": "NUMBER_MMU"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "Clumped_Layer ": {
+                            "values": {
+                                "alg": "GRASSR.CLUMP_1", 
+                                "output": "output"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "r:mmuremovesmallclumps", 
+                    "description": "MMU remove small clumps"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

@@ -1,0 +1,103 @@
+{
+    "values": {
+        "inputs": {
+            "RASTERLAYER_BINARYFLOODMAP": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_BINARYFLOODMAP", 
+                            "hidden": false, 
+                            "description": "Binary_flood_map", 
+                            "optional": false, 
+                            "value": null, 
+                            "exported": null
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "Flood mapping", 
+        "name": "KML Output", 
+        "algs": {
+            "GRASSR.TO.VECT_1": {
+                "values": {
+                    "name": "GRASSR.TO.VECT_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 160.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "input": {
+                            "values": {
+                                "name": "RASTERLAYER_BINARYFLOODMAP"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "-s": "False", 
+                        "feature": "2", 
+                        "GRASS_OUTPUT_TYPE_PARAMETER": "0"
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.to.vect", 
+                    "description": "r.to.vect - Converts a raster into a vector layer."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "RPG7OUTPUT2KML_1": {
+                "values": {
+                    "name": "RPG7OUTPUT2KML_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 260.0, 
+                            "x": 340.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "Input_raster ": {
+                            "values": {
+                                "name": "RASTERLAYER_BINARYFLOODMAP"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "Input_layer ": {
+                            "values": {
+                                "alg": "GRASSR.TO.VECT_1", 
+                                "output": "output"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }
+                    }, 
+                    "active": true, 
+                    "consoleName": "r:pg7output2kml", 
+                    "description": "pg7output2KML"
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}

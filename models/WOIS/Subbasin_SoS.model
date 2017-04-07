@@ -1,0 +1,224 @@
+{
+    "values": {
+        "inputs": {
+            "RASTERLAYER_INPUTSOS": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 340.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "RASTERLAYER_INPUTSOS", 
+                            "hidden": false, 
+                            "description": "Input SoS", 
+                            "optional": false, 
+                            "value": null, 
+                            "exported": null
+                        }, 
+                        "class": "processing.core.parameters.ParameterRaster"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "NUMBER_RASTERRESOLUTION": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 333.0, 
+                            "x": 125.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "NUMBER_RASTERRESOLUTION", 
+                            "min": 1e-06, 
+                            "default": 1.0, 
+                            "max": 10000.0, 
+                            "value": null, 
+                            "hidden": false, 
+                            "isInteger": false, 
+                            "description": "Raster resolution"
+                        }, 
+                        "class": "processing.core.parameters.ParameterNumber"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }, 
+            "VECTORLAYER_ZONELAYER": {
+                "values": {
+                    "pos": {
+                        "values": {
+                            "y": 60.0, 
+                            "x": 120.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "param": {
+                        "values": {
+                            "isAdvanced": false, 
+                            "name": "VECTORLAYER_ZONELAYER", 
+                            "shapetype": [
+                                2
+                            ], 
+                            "value": null, 
+                            "exported": null, 
+                            "hidden": false, 
+                            "optional": false, 
+                            "description": "Zone layer"
+                        }, 
+                        "class": "processing.core.parameters.ParameterVector"
+                    }
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.ModelerParameter"
+            }
+        }, 
+        "helpContent": {}, 
+        "group": "Hydrologic Characterization", 
+        "name": "Subbasin SoS statistics", 
+        "algs": {
+            "GRASSR.REPORT_1": {
+                "values": {
+                    "name": "GRASSR.REPORT_1", 
+                    "paramsFolded": true, 
+                    "outputs": {
+                        "html": {
+                            "values": {
+                                "description": "Output report file", 
+                                "pos": {
+                                    "values": {
+                                        "y": 477.0, 
+                                        "x": 776.0
+                                    }, 
+                                    "class": "point"
+                                }
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ModelerOutput"
+                        }
+                    }, 
+                    "outputsFolded": true, 
+                    "pos": {
+                        "values": {
+                            "y": 432.0, 
+                            "x": 576.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "dependencies": [], 
+                    "params": {
+                        "-e": true, 
+                        "map": [
+                            {
+                                "values": {
+                                    "alg": "GRASSR.MAPCALCULATOR_1", 
+                                    "output": "outfile"
+                                }, 
+                                "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                            }
+                        ], 
+                        "-f": true, 
+                        "-n": true, 
+                        "-h": true, 
+                        "GRASS_REGION_PARAMETER": null, 
+                        "-N": true, 
+                        "units": 2, 
+                        "null": "*", 
+                        "nsteps": 255.0
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.report", 
+                    "description": "r.report - Reports statistics for raster layers."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSV.TO.RAST.VALUE_1": {
+                "values": {
+                    "name": "GRASSV.TO.RAST.VALUE_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 263.0, 
+                            "x": 129.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "use": "0", 
+                        "GRASS_SNAP_TOLERANCE_PARAMETER": "-1.0", 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": {
+                            "values": {
+                                "name": "NUMBER_RASTERRESOLUTION"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_MIN_AREA_PARAMETER": "0.0001", 
+                        "value": "1.0", 
+                        "input": {
+                            "values": {
+                                "name": "VECTORLAYER_ZONELAYER"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:v.to.rast.value", 
+                    "description": "v.to.rast.value - Converts (rasterize) a vector layer into a raster layer."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }, 
+            "GRASSR.MAPCALCULATOR_1": {
+                "values": {
+                    "name": "GRASSR.MAPCALCULATOR_1", 
+                    "paramsFolded": true, 
+                    "outputs": {}, 
+                    "pos": {
+                        "values": {
+                            "y": 332.0, 
+                            "x": 356.0
+                        }, 
+                        "class": "point"
+                    }, 
+                    "outputsFolded": true, 
+                    "dependencies": [], 
+                    "params": {
+                        "fmap": null, 
+                        "emap": null, 
+                        "GRASS_REGION_CELLSIZE_PARAMETER": "0.0", 
+                        "dmap": null, 
+                        "cmap": null, 
+                        "bmap": {
+                            "values": {
+                                "alg": "GRASSV.TO.RAST.VALUE_1", 
+                                "output": "output"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromOutput"
+                        }, 
+                        "amap": {
+                            "values": {
+                                "name": "RASTERLAYER_INPUTSOS"
+                            }, 
+                            "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
+                        }, 
+                        "formula": " A*B", 
+                        "GRASS_REGION_PARAMETER": null
+                    }, 
+                    "active": true, 
+                    "consoleName": "grass:r.mapcalculator", 
+                    "description": "r.mapcalculator - Calculate new raster map from a r.mapcalc expression."
+                }, 
+                "class": "processing.modeler.ModelerAlgorithm.Algorithm"
+            }
+        }
+    }, 
+    "class": "processing.modeler.ModelerAlgorithm.ModelerAlgorithm"
+}
