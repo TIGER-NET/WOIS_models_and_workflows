@@ -123,8 +123,8 @@
                                 "description": "Output NDWI image", 
                                 "pos": {
                                     "values": {
-                                        "y": 354.0, 
-                                        "x": 502.0
+                                        "y": 334.0, 
+                                        "x": 556.0
                                     }, 
                                     "class": "point"
                                 }
@@ -187,8 +187,8 @@
                                 "description": "Output NDVI image", 
                                 "pos": {
                                     "values": {
-                                        "y": 356.0, 
-                                        "x": 164.0
+                                        "y": 342.0, 
+                                        "x": 153.0
                                     }, 
                                     "class": "point"
                                 }
@@ -224,9 +224,9 @@
                             }, 
                             "class": "processing.modeler.ModelerAlgorithm.ValueFromInput"
                         }, 
-                        "-list": 2, 
-                        "-ram": 128.0, 
+                        "-list": 0, 
                         "-channels.blue": 0.0, 
+                        "-ram": 128.0, 
                         "-channels.green": 0.0, 
                         "-channels.red": {
                             "values": {
